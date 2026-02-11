@@ -5,196 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intention 🌙</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Montserrat:wght@300&family=Lora:ital@1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Montserrat:wght@300&display=swap');
 
+        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #020202; color: #f0f0f0; overflow: hidden; font-family: 'Lora', serif; }
-
+        body { background-color: #020202; color: #f0f0f0; overflow: hidden; }
         canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
-        /* STAGE 1: THE GLOWING ENTRANCE */
+        /* STAGE 1: THE GLOWING JAR */
         #stage {
-            position: relative;
-            z-index: 10;
+            position: relative; z-index: 10;
             width: 100vw; height: 100vh;
             display: flex; justify-content: center; align-items: center;
-            flex-direction: column;
-            transition: opacity 1.5s ease, filter 1.5s ease;
-        }
-
-        .jar-wrapper {
-            position: relative;
-            width: 120px; height: 180px;
-            cursor: pointer;
-        }
-
-        .jar-glow {
-            position: absolute;
-            width: 160%; height: 160%;
-            top: -30%; left: -30%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
-            animation: pulse 3s infinite ease-in-out;
-            pointer-events: none;
-        }
-
-        .jar-shape {
-            width: 100%; height: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px 20px 40px 40px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(8px);
-        }
-
-        .cap {
-            position: absolute; top: -12px; left: 15px;
-            width: 90px; height: 22px;
-            background: #d4af37;
-            border-radius: 3px;
-            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 5;
+            flex-direction: column; transition: all 1.2s ease;
         }
 
         .hint {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.6rem;
-            letter-spacing: 6px;
-            color: #d4af37;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            opacity: 0.7;
-            animation: fadeInOut 2s infinite;
+            font-family: 'Montserrat', sans-serif; font-size: 0.55rem;
+            letter-spacing: 5px; color: #d4af37; text-transform: uppercase;
+            margin-bottom: 25px; opacity: 0.6; animation: blink 2s infinite;
         }
 
-        /* STAGE 2: THE FINAL NOTE (ONLY TEXT & STARS) */
+        .jar-wrapper { position: relative; width: 110px; height: 160px; cursor: pointer; }
+        
+        .jar-glow {
+            position: absolute; width: 140%; height: 140%; top: -20%; left: -20%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+            animation: pulse 3s infinite ease-in-out; pointer-events: none;
+        }
+
+        .jar-shape {
+            width: 100%; height: 100%; border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px 15px 30px 30px; background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+        }
+
+        .cap {
+            position: absolute; top: -10px; left: 15px; width: 80px; height: 18px;
+            background: #d4af37; border-radius: 2px; z-index: 5;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* STAGE 2: THE COMPACT NOTE */
         #the-note {
-            position: fixed; top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            display: none; justify-content: center; align-items: center;
-            z-index: 20;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            display: none; justify-content: center; align-items: center; z-index: 20;
         }
 
         .note-content {
-            width: 85%; max-width: 450px;
-            text-align: left;
-            /* No background, no box - just the ink on the starfield */
-            animation: inkFade 3s ease-out forwards;
+            width: 85%; max-width: 380px; /* Narrower for less empty space */
+            animation: inkFade 2.5s ease-out forwards;
         }
 
         .ink-text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
-            line-height: 1.8;
-            color: #ffffff; /* Crisp white ink */
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            font-family: 'Dancing Script', cursive; font-size: 1.35rem;
+            line-height: 1.4; /* Tightened spacing */
+            color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.1);
         }
 
-        .ink-promise {
-            color: #d4af37; /* Gold ink for the vows */
-            display: block;
-            margin: 15px 0;
-            font-size: 1.7rem;
-            font-weight: 600;
+        .vow {
+            color: #d4af37; display: block; 
+            margin: 8px 0; font-size: 1.5rem; font-weight: 600;
         }
 
         footer {
-            margin-top: 50px;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.6rem;
-            color: #d4af37;
-            opacity: 0.9;
+            margin-top: 30px; font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem; color: #d4af37;
         }
 
         /* ANIMATIONS */
+        .lid-fly { transform: translateY(-180px) rotate(130deg); opacity: 0; }
         @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.1); } }
-        @keyframes fadeInOut { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
-        @keyframes inkFade { from { opacity: 0; filter: blur(10px); transform: translateY(10px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+        @keyframes inkFade { 
+            from { opacity: 0; filter: blur(8px); transform: translateY(5px); } 
+            to { opacity: 1; filter: blur(0); transform: translateY(0); } 
+        }
     </style>
 </head>
 <body>
 
-<canvas id="starfield"></canvas>
+    <canvas id="starfield"></canvas>
 
-<div id="stage">
-    <div class="hint">Open the Jar</div>
-    <div class="jar-wrapper" id="jar">
-        <div class="jar-glow"></div>
-        <div class="cap" id="cap"></div>
-        <div class="jar-shape"></div>
-    </div>
-</div>
-
-<div id="the-note">
-    <div class="note-content">
-        <div class="ink-text">
-            I don’t believe in loud promises —<br>
-            I believe in the ones lived out, quietly, every day.<br><br>
-            
-            <span class="ink-promise">Promise to be love.</span>
-            <span class="ink-promise">Promise to be care.</span>
-            <span class="ink-promise">Promise to be there always.</span><br>
-            
-            To listen. To respect your space and support your direction.<br><br>
-            
-            No greed. No conditions.<br>
-            Only a quiet choice, made intentionally, every day.
+    <div id="stage">
+        <div class="hint">Open the Jar</div>
+        <div class="jar-wrapper" id="jar">
+            <div class="jar-glow"></div>
+            <div class="cap" id="cap"></div>
+            <div class="jar-shape"></div>
         </div>
-        <footer>With Intention, Deep</footer>
     </div>
-</div>
 
-<script>
-    // Deep Starfield Logic
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    function init() {
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        stars = [];
-        for(let i=0; i<100; i++) {
-            stars.push({
-                x: Math.random()*canvas.width, 
-                y: Math.random()*canvas.height, 
-                s: Math.random()*1.5, 
-                o: Math.random(),
-                b: Math.random() * 0.01
-            });
+    <div id="the-note">
+        <div class="note-content">
+            <div class="ink-text">
+                I don’t believe in loud promises —<br>
+                I believe in the ones lived out, quietly.<br>
+                <span class="vow">Promise to be love.</span>
+                <span class="vow">Promise to be care.</span>
+                <span class="vow">Promise to be there.</span><br>
+                
+                To listen. To respect your space<br>
+                and support your direction.<br>
+                No greed. No conditions.<br>
+                Only a quiet choice, made by intention.
+            </div>
+            <footer>With Intention, Deep</footer>
+        </div>
+    </div>
+
+    <script>
+        // BACKGROUND STARS
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        
+        function init() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            stars = [];
+            for(let i=0; i<90; i++) {
+                stars.push({
+                    x: Math.random()*canvas.width, 
+                    y: Math.random()*canvas.height, 
+                    s: Math.random()*1.2, 
+                    o: Math.random(),
+                    v: Math.random()*0.01
+                });
+            }
         }
-    }
-    function draw() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        stars.forEach(s => {
-            ctx.fillStyle = `rgba(255,255,255,${s.o})`;
-            ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill();
-            s.o += s.b;
-            if(s.o > 0.8 || s.o < 0.1) s.b *= -1;
-        });
-        requestAnimationFrame(draw);
-    }
-    init(); draw(); window.onresize = init;
 
-    // The Interaction Sequence
-    const jar = document.getElementById('jar');
-    const cap = document.getElementById('cap');
-    const stage = document.getElementById('stage');
-    const theNote = document.getElementById('the-note');
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            stars.forEach(s => {
+                ctx.fillStyle = `rgba(255,255,255,${s.o})`;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill();
+                s.o += s.v;
+                if(s.o > 0.8 || s.o < 0.2) s.v *= -1;
+            });
+            requestAnimationFrame(draw);
+        }
 
-    jar.addEventListener('click', () => {
-        // Step 1: Cap flies away
-        cap.style.transform = "translateY(-200px) rotate(140deg)";
-        cap.style.opacity = "0";
+        init(); draw(); window.onresize = init;
 
-        // Step 2: Fade the stage and bring in the ink
-        setTimeout(() => {
-            stage.style.filter = "blur(30px)";
-            stage.style.opacity = "0";
+        // INTERACTION LOGIC
+        const jar = document.getElementById('jar');
+        const cap = document.getElementById('cap');
+        const stage = document.getElementById('stage');
+        const theNote = document.getElementById('the-note');
+
+        jar.addEventListener('click', () => {
+            cap.classList.add('lid-fly');
             
             setTimeout(() => {
-                stage.style.display = "none";
-                theNote.style.display = "flex";
-            }, 1000);
-        }, 700);
-    });
-</script>
-
+                stage.style.filter = "blur(20px)";
+                stage.style.opacity = "0";
+                
+                setTimeout(() => {
+                    stage.style.display = "none";
+                    theNote.style.display = "flex";
+                }, 1000);
+            }, 600);
+        });
+    </script>
 </body>
 </html>
