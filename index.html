@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Note from Deep 🌙</title>
+    <title>Intention 🌙</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Montserrat:wght@300&family=Lora:ital@1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Montserrat:wght@300&family=Lora:ital@1&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #030303; color: #f0f0f0; overflow: hidden; font-family: 'Lora', serif; cursor: default; }
+        body { background-color: #020202; color: #f0f0f0; overflow: hidden; font-family: 'Lora', serif; }
 
         canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
+        /* STAGE 1: THE GLOWING ENTRANCE */
         #stage {
             position: relative;
             z-index: 10;
             width: 100vw; height: 100vh;
             display: flex; justify-content: center; align-items: center;
             flex-direction: column;
+            transition: opacity 1.5s ease, filter 1.5s ease;
         }
 
-        /* THE JAR - SIMPLIFIED & GLOWING */
         .jar-wrapper {
             position: relative;
             width: 120px; height: 180px;
             cursor: pointer;
-            transition: all 0.8s ease;
         }
 
         .jar-glow {
             position: absolute;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            width: 160%; height: 160%;
+            top: -30%; left: -30%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
             animation: pulse 3s infinite ease-in-out;
+            pointer-events: none;
         }
 
         .jar-shape {
@@ -40,15 +42,16 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px 20px 40px 40px;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .cap {
-            position: absolute; top: -10px; left: 15px;
-            width: 90px; height: 20px;
+            position: absolute; top: -12px; left: 15px;
+            width: 90px; height: 22px;
             background: #d4af37;
             border-radius: 3px;
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 5;
         }
 
         .hint {
@@ -57,11 +60,12 @@
             letter-spacing: 6px;
             color: #d4af37;
             text-transform: uppercase;
-            margin-bottom: 30px;
-            opacity: 0.6;
+            margin-bottom: 40px;
+            opacity: 0.7;
+            animation: fadeInOut 2s infinite;
         }
 
-        /* STAGE 2: THE PAPER REVEAL */
+        /* STAGE 2: THE FINAL NOTE (ONLY TEXT & STARS) */
         #the-note {
             position: fixed; top: 0; left: 0;
             width: 100vw; height: 100vh;
@@ -69,45 +73,41 @@
             z-index: 20;
         }
 
-        .paper {
-            width: 88%; max-width: 400px;
-            background-color: rgba(255, 255, 255, 0.02);
-            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-            padding: 50px 35px;
-            border-left: 1px solid rgba(212, 175, 55, 0.4);
-            transform: rotate(-1.5deg);
-            box-shadow: 15px 15px 40px rgba(0,0,0,0.8);
-            animation: unfold 2s ease-out;
+        .note-content {
+            width: 85%; max-width: 450px;
+            text-align: left;
+            /* No background, no box - just the ink on the starfield */
+            animation: inkFade 3s ease-out forwards;
         }
 
         .ink-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 1.4rem;
-            line-height: 1.7;
-            color: #ececec;
-            text-align: left;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #ffffff; /* Crisp white ink */
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
         .ink-promise {
-            color: #d4af37;
+            color: #d4af37; /* Gold ink for the vows */
             display: block;
-            margin: 12px 0;
-            font-size: 1.6rem;
-            letter-spacing: 0.5px;
+            margin: 15px 0;
+            font-size: 1.7rem;
+            font-weight: 600;
         }
 
         footer {
-            margin-top: 40px;
+            margin-top: 50px;
             font-family: 'Dancing Script', cursive;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: #d4af37;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 20px;
+            opacity: 0.9;
         }
 
         /* ANIMATIONS */
-        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.1); opacity: 0.6; } }
-        @keyframes unfold { from { opacity: 0; transform: rotate(0deg) scale(0.9); filter: blur(10px); } to { opacity: 1; transform: rotate(-1.5deg) scale(1); filter: blur(0); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.1); } }
+        @keyframes fadeInOut { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+        @keyframes inkFade { from { opacity: 0; filter: blur(10px); transform: translateY(10px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -124,10 +124,9 @@
 </div>
 
 <div id="the-note">
-    <div class="paper">
-        <div style="font-family: 'Montserrat'; font-size: 0.55rem; letter-spacing: 4px; color:rgba(212, 175, 55, 0.6); margin-bottom: 30px;">PERSONAL NOTE</div>
+    <div class="note-content">
         <div class="ink-text">
-            I don’t believe in loud promises—<br>
+            I don’t believe in loud promises —<br>
             I believe in the ones lived out, quietly, every day.<br><br>
             
             <span class="ink-promise">Promise to be love.</span>
@@ -144,43 +143,56 @@
 </div>
 
 <script>
-    // Starfield Background
+    // Deep Starfield Logic
     const canvas = document.getElementById('starfield');
     const ctx = canvas.getContext('2d');
     let stars = [];
     function init() {
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        for(let i=0; i<70; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*1.2, o:Math.random()});
+        stars = [];
+        for(let i=0; i<100; i++) {
+            stars.push({
+                x: Math.random()*canvas.width, 
+                y: Math.random()*canvas.height, 
+                s: Math.random()*1.5, 
+                o: Math.random(),
+                b: Math.random() * 0.01
+            });
+        }
     }
     function draw() {
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        stars.forEach(s=>{ctx.fillStyle=`rgba(255,255,255,${s.o})`;ctx.beginPath();ctx.arc(s.x,s.y,s.s,0,Math.PI*2);ctx.fill();});
+        stars.forEach(s => {
+            ctx.fillStyle = `rgba(255,255,255,${s.o})`;
+            ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill();
+            s.o += s.b;
+            if(s.o > 0.8 || s.o < 0.1) s.b *= -1;
+        });
         requestAnimationFrame(draw);
     }
-    init(); draw();
+    init(); draw(); window.onresize = init;
 
-    // The Sequence
+    // The Interaction Sequence
     const jar = document.getElementById('jar');
     const cap = document.getElementById('cap');
     const stage = document.getElementById('stage');
     const theNote = document.getElementById('the-note');
 
     jar.addEventListener('click', () => {
-        // Step 1: Cap twist and fly
-        cap.style.transform = "translateY(-180px) rotate(120deg)";
+        // Step 1: Cap flies away
+        cap.style.transform = "translateY(-200px) rotate(140deg)";
         cap.style.opacity = "0";
 
-        // Step 2: Dissolve Jar
+        // Step 2: Fade the stage and bring in the ink
         setTimeout(() => {
-            stage.style.filter = "blur(20px)";
+            stage.style.filter = "blur(30px)";
             stage.style.opacity = "0";
             
-            // Step 3: Reveal Paper
             setTimeout(() => {
                 stage.style.display = "none";
                 theNote.style.display = "flex";
-            }, 800);
-        }, 600);
+            }, 1000);
+        }, 700);
     });
 </script>
 
