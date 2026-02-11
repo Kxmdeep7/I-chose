@@ -10,7 +10,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #080808;
+            background-color: #030303;
             color: #f0f0f0;
             font-family: 'Lora', serif;
             display: flex;
@@ -27,90 +27,82 @@
             z-index: 1;
         }
 
-        .card {
+        .letterhead {
             position: relative;
             z-index: 2;
             width: 90%;
-            max-width: 400px;
+            max-width: 440px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 0.5px solid rgba(255, 215, 0, 0.15);
+            padding: 60px 35px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
             text-align: center;
-            padding: 40px 25px;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            border-radius: 25px;
-            animation: fadeIn 2.5s ease-in;
+            animation: fadeIn 3s ease-in;
         }
 
-        .lyrics {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #d4af37;
-            margin-bottom: 25px;
-            font-style: italic;
-        }
-
-        .divider {
-            width: 30px;
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-            margin: 20px auto;
-        }
-
-        .promise-text {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.9);
-            text-align: center;
-        }
-
-        .promise-title {
+        .header-mark {
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 4px;
+            font-size: 0.65rem;
+            letter-spacing: 6px;
             color: #d4af37;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 40px;
             display: block;
         }
 
+        .content {
+            font-size: 1rem;
+            line-height: 2;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .vow {
+            color: #d4af37;
+            display: block;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
         footer {
-            margin-top: 40px;
+            margin-top: 50px;
+            font-family: 'Montserrat', sans-serif;
             font-size: 0.7rem;
             letter-spacing: 4px;
-            color: rgba(255, 255, 255, 0.3);
+            color: #d4af37;
             text-transform: uppercase;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.99); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
 
     <canvas id="starfield"></canvas>
 
-    <div class="card">
-        <div class="lyrics">
-            Pakke la chadd de yaarane sade naal,<br>
-            saambh sadda dil baki lavange sambhal.
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="promise-text">
-            <span class="promise-title">The Promise</span>
-            I don’t believe in loud promises —<br>
-            I believe in lived ones.<br><br>
-            To show up with patience.<br>
-            To move with care.<br>
-            To listen before speaking.<br>
-            To respect your space<br>
-            and support your direction.<br><br>
+    <div class="letterhead">
+        <span class="header-mark">Personal Note</span>
+        
+        <div class="content">
+            I don’t believe in promises that are loud.<br>
+            I believe in the ones lived out, quietly, every day.<br><br>
+            
+            <span class="vow">Promise to be love.</span>
+            <span class="vow">Promise to be care.</span>
+            <span class="vow">Promise to be there.</span><br>
+            
+            To listen when you speak,<br>
+            and respect the silence when you don’t.<br>
+            To support the person you are becoming.<br><br>
+            
             No greed. No conditions.<br>
-            Only a quiet choice,<br>
-            made intentionally, every day.
+            Just a choice I make by <span style="font-style: italic; color: #d4af37;">intention</span>.
         </div>
 
-        <footer>With Intention, Deep</footer>
+        <footer>
+            With Intention,<br>
+            Deep
+        </footer>
     </div>
 
     <script>
@@ -122,13 +114,13 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             stars = [];
-            for(let i=0; i<80; i++) {
+            for(let i=0; i<70; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 1.2,
-                    opacity: Math.random() * 0.5 + 0.2,
-                    blink: Math.random() * 0.015
+                    size: Math.random() * 1.5,
+                    opacity: Math.random() * 0.5 + 0.1,
+                    blink: Math.random() * 0.01 + 0.005
                 });
             }
         }
@@ -141,7 +133,7 @@
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
                 ctx.fill();
                 star.opacity += star.blink;
-                if(star.opacity > 0.8 || star.opacity < 0.2) star.blink *= -1;
+                if(star.opacity > 0.7 || star.opacity < 0.1) star.blink *= -1;
             });
             requestAnimationFrame(drawStars);
         }
