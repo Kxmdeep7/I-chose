@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiet Promises</title>
+    <title>Intention 🌙</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Montserrat:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Montserrat:wght@300;400&family=Noto+Sans+Gurmukhi:wght@300;400&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -17,7 +17,6 @@
             overflow-x: hidden;
         }
 
-        /* STARDUST CANVAS */
         #starfield {
             position: fixed;
             top: 0; left: 0;
@@ -50,6 +49,22 @@
             transform: translateY(0);
         }
 
+        /* Punjabi Opening Styles */
+        .punjabi-text {
+            font-family: 'Noto Sans Gurmukhi', sans-serif;
+            font-size: 1.8rem;
+            line-height: 2.2;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .heart-icon {
+            color: #ff4d4d;
+            font-size: 1.5rem;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+
         h1 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 300;
@@ -64,7 +79,6 @@
         .italic-text { font-style: italic; color: rgba(255,255,255,0.6); font-size: 1.1rem; }
         .accent-text { color: #d4af37; }
 
-        .list-container { margin: 20px 0; }
         .list-item { margin-bottom: 25px; display: block; }
         .list-item small { color: rgba(255,255,255,0.5); font-size: 0.9rem; display: block; margin-top: 5px; }
 
@@ -75,6 +89,12 @@
             letter-spacing: 3px;
             color: rgba(255,255,255,0.3);
             text-transform: uppercase;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
         .overlay {
@@ -91,6 +111,15 @@
 
     <div class="scroll-container">
         
+        <section>
+            <div class="punjabi-text">
+                ਸੋਹਣੀ ਆ, ਸਿਆਣੀ ਆ, ਹੋਰਾਂ ਨਾਲੋਂ ਵੱਖ ਆ ਤੂੰ<br>
+                ਜਿਹਨੂੰ ਹਾਰਕੇ ਵੀ ਜਿੱਤ ਜਾਵਾਂ, ਮੇਰਾ ਉਹ ਪੱਖ ਆ ਤੂੰ
+            </div>
+            <div class="heart-icon">❤️</div>
+            <p class="italic-text" style="margin-top: 40px; font-size: 0.8rem; letter-spacing: 2px;">SCROLL TO BEGIN</p>
+        </section>
+
         <section>
             <h1>🌙 Quiet Promises</h1>
             <p class="big-text">I don’t believe promises should be loud.</p>
@@ -136,7 +165,6 @@
     </div>
 
     <script>
-        // Starfield Logic
         const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -150,7 +178,7 @@
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     size: Math.random() * 1.5,
-                    speed: Math.random() * 0.5 + 0.1
+                    speed: Math.random() * 0.4 + 0.1
                 });
             }
         }
@@ -159,7 +187,7 @@
             ctx.clearRect(0,0,canvas.width, canvas.height);
             ctx.fillStyle = "white";
             stars.forEach(star => {
-                ctx.globalAlpha = Math.random() * 0.5 + 0.5;
+                ctx.globalAlpha = Math.random() * 0.5 + 0.3;
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
                 ctx.fill();
@@ -172,7 +200,6 @@
         initStars();
         drawStars();
 
-        // Scroll Reveal Logic
         const sections = document.querySelectorAll('section');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -185,4 +212,3 @@
     </script>
 </body>
 </html>
-
