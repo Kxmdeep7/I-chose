@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intention 🌙</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Montserrat:wght@300&family=Monsieur+La+Doulaise&display=swap');
+        /* Modern, clean handwriting fonts for a personal note feel */
+        @import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Montserrat:wght@300&family=Shadows+Into+Light&display=swap');
 
-        /* RESET & SCROLLING */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
             background-color: #010101; 
             color: #f0f0f0; 
-            /* Unlocked vertical scrolling for the final note */
             overflow-x: hidden;
             overflow-y: auto; 
             min-height: 100vh;
@@ -36,70 +35,72 @@
         }
 
         .jar-wrapper { 
-            position: relative; width: 120px; height: 180px; cursor: pointer;
+            position: relative; width: 110px; height: 170px; cursor: pointer;
             animation: float 5s infinite ease-in-out;
         }
 
         .vibrate { animation: vibrate 0.3s linear infinite !important; }
 
         .jar-shape {
-            width: 100%; height: 100%; border: 1.5px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px 20px 40px 40px; background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
+            width: 100%; height: 100%; border: 1.2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px 15px 30px 30px; background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
         }
 
         .cap {
-            position: absolute; top: -12px; left: 15px; width: 90px; height: 22px;
-            background: #d4af37; border-radius: 3px; z-index: 5;
+            position: absolute; top: -10px; left: 15px; width: 80px; height: 20px;
+            background: #d4af37; border-radius: 2px; z-index: 5;
             transition: all 0.8s cubic-bezier(0.5, -0.5, 0.5, 1.5);
         }
 
         /* --- STAGE 2: THE REVEAL --- */
         #the-note {
-            position: relative; /* Changed to relative to allow natural page height */
+            position: relative;
             width: 100vw; 
             display: none; 
             justify-content: center; 
-            padding: 80px 0; /* Extra space at top/bottom for scrolling */
+            padding: 100px 0;
             z-index: 20;
         }
 
         .note-content {
-            width: 85%; max-width: 400px; 
-            animation: revealNote 4s forwards ease-out;
+            width: 85%; max-width: 380px; 
+            animation: revealNote 3s forwards ease-out;
             text-align: left;
         }
 
         .ink-text {
-            font-family: 'Mrs Saint Delafield', cursive; 
-            font-size: 2.4rem; 
-            line-height: 1.3; /* Increased for better legibility */
+            font-family: 'Reenie Beanie', cursive; 
+            font-size: 2rem; 
+            line-height: 1.2; 
             color: #ffffff;
-            text-shadow: 0.5px 0.5px 1px rgba(255,255,255,0.4), 0 0 15px rgba(255,255,255,0.1);
+            letter-spacing: 1px;
+            /* Subtle pen-on-paper effect */
+            text-shadow: 0 0 1px rgba(255,255,255,0.3);
         }
 
         .vow { 
-            font-family: 'Monsieur La Doulaise', cursive;
+            font-family: 'Shadows Into Light', cursive;
             color: #d4af37; 
             display: block; 
-            margin: 15px 0; /* More space around the core promises */
-            font-size: 2.8rem; 
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            margin: 15px 0;
+            font-size: 1.6rem; 
+            letter-spacing: 0.5px;
         }
         
         footer { 
             margin-top: 50px; font-family: 'Montserrat', sans-serif; 
-            font-size: 0.75rem; letter-spacing: 6px; color: #d4af37;
+            font-size: 0.7rem; letter-spacing: 5px; color: #d4af37;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 20px; width: 120px;
+            padding-top: 20px; width: 100px;
         }
 
         /* --- ANIMATIONS --- */
-        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-20px) rotate(2deg); } }
-        @keyframes vibrate { 0% { transform: translate(1px, 1px) rotate(0deg); } 50% { transform: translate(-2px, 1px) rotate(1deg); } 100% { transform: translate(1px, -1px) rotate(-1deg); } }
-        @keyframes lidFly { to { transform: translateY(-300px) rotate(720deg); opacity: 0; } }
-        @keyframes dissolve { to { transform: scale(1.7); filter: blur(60px); opacity: 0; } }
-        @keyframes revealNote { from { opacity: 0; filter: blur(20px); transform: translateY(20px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-15px) rotate(1deg); } }
+        @keyframes vibrate { 0% { transform: translate(1px, 1px) rotate(0deg); } 50% { transform: translate(-1px, 1px) rotate(1deg); } 100% { transform: translate(1px, -1px) rotate(-1deg); } }
+        @keyframes lidFly { to { transform: translateY(-300px) rotate(540deg); opacity: 0; } }
+        @keyframes dissolve { to { transform: scale(1.6); filter: blur(50px); opacity: 0; } }
+        @keyframes revealNote { from { opacity: 0; filter: blur(15px); transform: translateY(15px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
         @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
     </style>
 </head>
@@ -144,16 +145,16 @@
         function init() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             stars = [];
-            for(let i=0; i<100; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*1.5, o: Math.random(), v: Math.random()*0.01});
+            for(let i=0; i<90; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*1.3, o: Math.random(), v: Math.random()*0.01});
         }
 
         function createParticles(x, y) {
-            for(let i=0; i<70; i++) {
+            for(let i=0; i<60; i++) {
                 particles.push({
                     x: x, y: y,
-                    vx: (Math.random() - 0.5) * 5,
-                    vy: (Math.random() - 0.5) * 5,
-                    size: Math.random() * 2.5,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 4,
+                    size: Math.random() * 2,
                     life: 1,
                     decay: Math.random() * 0.002 + 0.001 
                 });
@@ -196,8 +197,6 @@
                     setTimeout(() => {
                         stage.style.display = "none";
                         theNote.style.display = "flex";
-                        // Re-trigger scrollability for mobile
-                        document.body.style.overflowY = "auto";
                     }, 1200);
                 }, 700);
             }, 400);
