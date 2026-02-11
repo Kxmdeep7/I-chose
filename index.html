@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiet Promises</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Montserrat:wght@300;400&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #080808;
+            color: #f0f0f0;
+            font-family: 'Lora', serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* STARDUST CANVAS */
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .scroll-container {
+            position: relative;
+            z-index: 2;
+            padding: 0 10%;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            padding: 60px 0;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            letter-spacing: 5px;
+            color: #d4af37;
+            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+        }
+
+        .big-text { font-size: 1.6rem; color: #ffffff; font-weight: 300; margin: 10px 0; }
+        .italic-text { font-style: italic; color: rgba(255,255,255,0.6); font-size: 1.1rem; }
+        .accent-text { color: #d4af37; }
+
+        .list-container { margin: 20px 0; }
+        .list-item { margin-bottom: 25px; display: block; }
+        .list-item small { color: rgba(255,255,255,0.5); font-size: 0.9rem; display: block; margin-top: 5px; }
+
+        footer {
+            padding: 100px 0 60px;
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+        }
+
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 20%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none; z-index: 3;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="starfield"></canvas>
+    <div class="overlay"></div>
+
+    <div class="scroll-container">
+        
+        <section>
+            <h1>🌙 Quiet Promises</h1>
+            <p class="big-text">I don’t believe promises should be loud.</p>
+            <p class="italic-text">I believe they should be lived.</p>
+        </section>
+
+        <section>
+            <p class="big-text">What I <span class="accent-text">choose</span> matters more<br>than what I say.</p>
+        </section>
+
+        <section>
+            <h1>The Quiet Promises</h1>
+            <div class="list-container">
+                <span class="list-item">I choose <span class="accent-text">honesty</span>,<small>even when silence feels easier.</small></span>
+                <span class="list-item">I choose <span class="accent-text">patience</span>,<small>even when time feels uncertain.</small></span>
+                <span class="list-item">I choose <span class="accent-text">calm</span>,<small>even when emotions feel heavy.</small></span>
+                <span class="list-item">I choose <span class="accent-text">respect</span>,<small>for your space, your pace, your voice.</small></span>
+                <span class="list-item">I choose to stay <span class="accent-text">real</span>,<small>not perfect.</small></span>
+            </div>
+        </section>
+
+        <section>
+            <p class="italic-text">These aren’t promises meant to hold anyone.</p>
+            <p class="big-text">They’re simply how I choose to show up —</p>
+            <p class="accent-text">consistently, quietly, honestly.</p>
+        </section>
+
+        <section>
+            <p class="big-text">I choose <span class="accent-text">you</span>,</p>
+            <p class="italic-text">not by comparison,</p>
+            <p class="big-text">but by <span class="accent-text">intention</span>.</p>
+        </section>
+
+        <section>
+            <p class="italic-text">Whatever tomorrow becomes,</p>
+            <p class="big-text">this is who I choose to be today.</p>
+        </section>
+
+        <footer>
+            With intention, <br> Deep
+        </footer>
+
+    </div>
+
+    <script>
+        // Starfield Logic
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function initStars() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            for(let i=0; i<150; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5,
+                    speed: Math.random() * 0.5 + 0.1
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            stars.forEach(star => {
+                ctx.globalAlpha = Math.random() * 0.5 + 0.5;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
+                ctx.fill();
+                star.y -= star.speed;
+                if(star.y < 0) star.y = canvas.height;
+            });
+            requestAnimationFrame(drawStars);
+        }
+
+        initStars();
+        drawStars();
+
+        // Scroll Reveal Logic
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => observer.observe(section));
+        window.addEventListener('resize', initStars);
+    </script>
+</body>
+</html>
+
