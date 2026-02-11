@@ -3,178 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intention 🌙</title>
+    <title>A Note from Deep 🌙</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Montserrat:wght@300&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Montserrat:wght@300&family=Lora:ital@1&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #050505; color: #f0f0f0; overflow: hidden; font-family: 'Playfair Display', serif; }
+        body { background-color: #030303; color: #f0f0f0; overflow: hidden; font-family: 'Lora', serif; cursor: default; }
 
-        canvas { position: fixed; top: 0; left: 0; z-index: 1; }
+        canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
-        /* STAGE 1: THE JAR */
-        #interaction-layer {
+        #stage {
             position: relative;
             z-index: 10;
             width: 100vw; height: 100vh;
             display: flex; justify-content: center; align-items: center;
+            flex-direction: column;
+        }
+
+        /* THE JAR - SIMPLIFIED & GLOWING */
+        .jar-wrapper {
+            position: relative;
+            width: 120px; height: 180px;
             cursor: pointer;
-        }
-
-        .jar-container {
-            width: 150px; height: 220px;
-            position: relative;
-            transition: transform 0.5s ease;
-        }
-
-        .jar-lid {
-            width: 100px; height: 30px;
-            background: #d4af37;
-            border-radius: 5px;
-            position: absolute; top: -10px; left: 25px;
-            z-index: 12;
             transition: all 0.8s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
-        .jar-body {
+        .jar-glow {
+            position: absolute;
             width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px 20px 40px 40px;
-            position: relative;
-            overflow: hidden;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            animation: pulse 3s infinite ease-in-out;
         }
 
-        .paper-inside {
-            width: 40px; height: 60px;
-            background: #fff;
-            position: absolute; bottom: 20px; left: 55px;
-            transform: rotate(-10deg);
+        .jar-shape {
+            width: 100%; height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px 20px 40px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .cap {
+            position: absolute; top: -10px; left: 15px;
+            width: 90px; height: 20px;
+            background: #d4af37;
+            border-radius: 3px;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hint {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            color: #d4af37;
+            text-transform: uppercase;
+            margin-bottom: 30px;
             opacity: 0.6;
         }
 
-        /* STAGE 2: THE LETTER EXIT */
-        .lid-off { transform: translateY(-100px) rotate(45deg); opacity: 0; }
-
-        .letter-flying {
-            position: absolute;
-            width: 60px; height: 80px;
-            background: #fdfdfd;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 15;
-            display: none;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-            animation: float 3s infinite ease-in-out;
-        }
-
-        /* STAGE 3: THE FINAL NOTE */
-        #final-note {
+        /* STAGE 2: THE PAPER REVEAL */
+        #the-note {
             position: fixed; top: 0; left: 0;
             width: 100vw; height: 100vh;
             display: none; justify-content: center; align-items: center;
             z-index: 20;
-            background: radial-gradient(circle at center, transparent 0%, #050505 100%);
         }
 
-        .stationery {
-            width: 90%; max-width: 450px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            padding: 60px 40px;
-            border-left: 1px solid #d4af37;
-            transform: rotate(-1deg);
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.8);
+        .paper {
+            width: 88%; max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.02);
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            padding: 50px 35px;
+            border-left: 1px solid rgba(212, 175, 55, 0.4);
+            transform: rotate(-1.5deg);
+            box-shadow: 15px 15px 40px rgba(0,0,0,0.8);
+            animation: unfold 2s ease-out;
         }
 
-        .content { font-family: 'Dancing Script', cursive; font-size: 1.4rem; line-height: 1.6; color: #e0e0e0; }
-        .vow { color: #d4af37; display: block; margin: 15px 0; font-size: 1.6rem; }
-        footer { margin-top: 40px; font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #d4af37; }
+        .ink-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            line-height: 1.7;
+            color: #ececec;
+            text-align: left;
+        }
 
-        @keyframes float { 0%, 100% { transform: translate(-50%, -55%); } 50% { transform: translate(-50%, -45%); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .ink-promise {
+            color: #d4af37;
+            display: block;
+            margin: 12px 0;
+            font-size: 1.6rem;
+            letter-spacing: 0.5px;
+        }
 
-        .hidden { display: none !important; }
+        footer {
+            margin-top: 40px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: #d4af37;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 20px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.1); opacity: 0.6; } }
+        @keyframes unfold { from { opacity: 0; transform: rotate(0deg) scale(0.9); filter: blur(10px); } to { opacity: 1; transform: rotate(-1.5deg) scale(1); filter: blur(0); } }
     </style>
 </head>
 <body>
 
-    <canvas id="starfield"></canvas>
+<canvas id="starfield"></canvas>
 
-    <div id="interaction-layer">
-        <div class="jar-container" id="jar">
-            <div class="jar-lid" id="lid"></div>
-            <div class="jar-body">
-                <div class="paper-inside"></div>
-            </div>
-        </div>
-        <div id="letter" class="letter-flying"></div>
+<div id="stage">
+    <div class="hint">Open the Jar</div>
+    <div class="jar-wrapper" id="jar">
+        <div class="jar-glow"></div>
+        <div class="cap" id="cap"></div>
+        <div class="jar-shape"></div>
     </div>
+</div>
 
-    <div id="final-note">
-        <div class="stationery">
-            <div style="font-family: 'Montserrat'; font-size: 0.6rem; letter-spacing: 5px; color:#d4af37; margin-bottom: 30px;">PERSONAL NOTE</div>
-            <div class="content">
-                I don’t believe in loud promises—<br>
-                I believe in the ones lived out, quietly, every day.<br><br>
-                
-                <span class="vow">Promise to be love.</span>
-                <span class="vow">Promise to be care.</span>
-                <span class="vow">Promise to be there always.</span><br>
-                
-                To listen. To respect your space and support your direction.<br><br>
-                
-                No greed. No conditions.<br>
-                Only a quiet choice, made by <span style="font-style: italic;">intention</span>.
-            </div>
-            <footer>With Intention, Deep</footer>
+<div id="the-note">
+    <div class="paper">
+        <div style="font-family: 'Montserrat'; font-size: 0.55rem; letter-spacing: 4px; color:rgba(212, 175, 55, 0.6); margin-bottom: 30px;">PERSONAL NOTE</div>
+        <div class="ink-text">
+            I don’t believe in loud promises—<br>
+            I believe in the ones lived out, quietly, every day.<br><br>
+            
+            <span class="ink-promise">Promise to be love.</span>
+            <span class="ink-promise">Promise to be care.</span>
+            <span class="ink-promise">Promise to be there always.</span><br>
+            
+            To listen. To respect your space and support your direction.<br><br>
+            
+            No greed. No conditions.<br>
+            Only a quiet choice, made intentionally, every day.
         </div>
+        <footer>With Intention, Deep</footer>
     </div>
+</div>
 
-    <script>
-        // Starfield background
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        function initStars() {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            stars = [];
-            for(let i=0; i<80; i++) stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, size: Math.random()*1.5, op: Math.random() });
-        }
-        function drawStars() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            stars.forEach(s => { ctx.fillStyle = `rgba(255,255,255,${s.op})`; ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI*2); ctx.fill(); });
-            requestAnimationFrame(drawStars);
-        }
-        initStars(); drawStars();
+<script>
+    // Starfield Background
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function init() {
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        for(let i=0; i<70; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*1.2, o:Math.random()});
+    }
+    function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        stars.forEach(s=>{ctx.fillStyle=`rgba(255,255,255,${s.o})`;ctx.beginPath();ctx.arc(s.x,s.y,s.s,0,Math.PI*2);ctx.fill();});
+        requestAnimationFrame(draw);
+    }
+    init(); draw();
 
-        // Interaction Logic
-        const jar = document.getElementById('jar');
-        const lid = document.getElementById('lid');
-        const letter = document.getElementById('letter');
-        const interactionLayer = document.getElementById('interaction-layer');
-        const finalNote = document.getElementById('final-note');
+    // The Sequence
+    const jar = document.getElementById('jar');
+    const cap = document.getElementById('cap');
+    const stage = document.getElementById('stage');
+    const theNote = document.getElementById('the-note');
 
-        jar.addEventListener('click', () => {
-            lid.classList.add('lid-off');
+    jar.addEventListener('click', () => {
+        // Step 1: Cap twist and fly
+        cap.style.transform = "translateY(-180px) rotate(120deg)";
+        cap.style.opacity = "0";
+
+        // Step 2: Dissolve Jar
+        setTimeout(() => {
+            stage.style.filter = "blur(20px)";
+            stage.style.opacity = "0";
+            
+            // Step 3: Reveal Paper
             setTimeout(() => {
-                jar.style.opacity = '0';
-                setTimeout(() => {
-                    jar.style.display = 'none';
-                    letter.style.display = 'block';
-                }, 500);
-            }, 600);
-        });
+                stage.style.display = "none";
+                theNote.style.display = "flex";
+            }, 800);
+        }, 600);
+    });
+</script>
 
-        letter.addEventListener('click', (e) => {
-            e.stopPropagation();
-            interactionLayer.style.display = 'none';
-            finalNote.style.display = 'flex';
-            finalNote.style.animation = 'fadeIn 2s forwards';
-        });
-    </script>
 </body>
 </html>
