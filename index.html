@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intention 🌙</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Montserrat:wght@300;400&family=Noto+Sans+Gurmukhi:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Montserrat:wght@300;400&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -39,8 +39,8 @@
             align-items: center;
             text-align: center;
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateY(30px);
+            transition: all 1.5s ease-out;
             padding: 60px 0;
         }
 
@@ -49,20 +49,12 @@
             transform: translateY(0);
         }
 
-        /* Punjabi Opening Styles */
-        .punjabi-text {
-            font-family: 'Noto Sans Gurmukhi', sans-serif;
-            font-size: 1.8rem;
-            line-height: 2.2;
+        .opening-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
             color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .heart-icon {
-            color: #ff4d4d;
-            font-size: 1.5rem;
-            margin-top: 10px;
-            animation: pulse 2s infinite;
+            font-style: italic;
+            max-width: 300px;
         }
 
         h1 {
@@ -70,36 +62,29 @@
             font-weight: 300;
             letter-spacing: 5px;
             color: #d4af37;
-            font-size: 0.9rem;
-            margin-bottom: 2.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 2rem;
             text-transform: uppercase;
         }
 
-        .big-text { font-size: 1.6rem; color: #ffffff; font-weight: 300; margin: 10px 0; }
-        .italic-text { font-style: italic; color: rgba(255,255,255,0.6); font-size: 1.1rem; }
+        .big-text { font-size: 1.4rem; color: #ffffff; font-weight: 300; margin: 10px 0; }
         .accent-text { color: #d4af37; }
 
-        .list-item { margin-bottom: 25px; display: block; }
-        .list-item small { color: rgba(255,255,255,0.5); font-size: 0.9rem; display: block; margin-top: 5px; }
+        .list-item { margin-bottom: 30px; display: block; }
+        .list-item b { font-weight: 400; color: #d4af37; font-size: 1.2rem; display: block; letter-spacing: 1px; }
+        .list-item small { color: rgba(255,255,255,0.5); font-size: 0.9rem; display: block; margin-top: 4px; }
 
         footer {
             padding: 100px 0 60px;
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 3px;
             color: rgba(255,255,255,0.3);
-            text-transform: uppercase;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
         }
 
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 20%, rgba(0,0,0,0.7) 100%);
+            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);
             pointer-events: none; z-index: 3;
         }
     </style>
@@ -112,50 +97,39 @@
     <div class="scroll-container">
         
         <section>
-            <div class="punjabi-text">
-                ਸੋਹਣੀ ਆ, ਸਿਆਣੀ ਆ, ਹੋਰਾਂ ਨਾਲੋਂ ਵੱਖ ਆ ਤੂੰ<br>
-                ਜਿਹਨੂੰ ਹਾਰਕੇ ਵੀ ਜਿੱਤ ਜਾਵਾਂ, ਮੇਰਾ ਉਹ ਪੱਖ ਆ ਤੂੰ
+            <div class="opening-text">
+                "Beautiful, wise,<br>
+                and different from the rest.<br>
+                Losing to you is my win."
             </div>
-            <div class="heart-icon">❤️</div>
-            <p class="italic-text" style="margin-top: 40px; font-size: 0.8rem; letter-spacing: 2px;">SCROLL TO BEGIN</p>
+            <p style="margin-top: 40px; font-size: 0.7rem; letter-spacing: 2px; color: rgba(255,255,255,0.4);">SCROLL</p>
         </section>
 
         <section>
-            <h1>🌙 Quiet Promises</h1>
-            <p class="big-text">I don’t believe promises should be loud.</p>
-            <p class="italic-text">I believe they should be lived.</p>
+            <p class="big-text">Choice matters more than words.</p>
         </section>
 
         <section>
-            <p class="big-text">What I <span class="accent-text">choose</span> matters more<br>than what I say.</p>
-        </section>
-
-        <section>
-            <h1>The Quiet Promises</h1>
+            <h1>Quiet Promises</h1>
             <div class="list-container">
-                <span class="list-item">I choose <span class="accent-text">honesty</span>,<small>even when silence feels easier.</small></span>
-                <span class="list-item">I choose <span class="accent-text">patience</span>,<small>even when time feels uncertain.</small></span>
-                <span class="list-item">I choose <span class="accent-text">calm</span>,<small>even when emotions feel heavy.</small></span>
-                <span class="list-item">I choose <span class="accent-text">respect</span>,<small>for your space, your pace, your voice.</small></span>
-                <span class="list-item">I choose to stay <span class="accent-text">real</span>,<small>not perfect.</small></span>
+                <span class="list-item"><b>Honesty</b><small>over easy silence.</small></span>
+                <span class="list-item"><b>Patience</b><small>through uncertain times.</small></span>
+                <span class="list-item"><b>Respect</b><small>for your space and pace.</small></span>
+                <span class="list-item"><b>Realness</b><small>instead of perfection.</small></span>
             </div>
         </section>
 
         <section>
-            <p class="italic-text">These aren’t promises meant to hold anyone.</p>
-            <p class="big-text">They’re simply how I choose to show up —</p>
-            <p class="accent-text">consistently, quietly, honestly.</p>
+            <p class="big-text">No weight, no pressure.</p>
+            <p style="font-style: italic; color: rgba(255,255,255,0.6);">Just showing up.</p>
         </section>
 
         <section>
-            <p class="big-text">I choose <span class="accent-text">you</span>,</p>
-            <p class="italic-text">not by comparison,</p>
-            <p class="big-text">but by <span class="accent-text">intention</span>.</p>
+            <p class="big-text">Chosen by <span class="accent-text">intention</span>.</p>
         </section>
 
         <section>
-            <p class="italic-text">Whatever tomorrow becomes,</p>
-            <p class="big-text">this is who I choose to be today.</p>
+            <p class="big-text">This is today.</p>
         </section>
 
         <footer>
@@ -173,12 +147,12 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             stars = [];
-            for(let i=0; i<150; i++) {
+            for(let i=0; i<100; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 1.5,
-                    speed: Math.random() * 0.4 + 0.1
+                    size: Math.random() * 1.2,
+                    speed: Math.random() * 0.3 + 0.1
                 });
             }
         }
@@ -187,7 +161,7 @@
             ctx.clearRect(0,0,canvas.width, canvas.height);
             ctx.fillStyle = "white";
             stars.forEach(star => {
-                ctx.globalAlpha = Math.random() * 0.5 + 0.3;
+                ctx.globalAlpha = 0.4;
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
                 ctx.fill();
@@ -200,14 +174,13 @@
         initStars();
         drawStars();
 
-        const sections = document.querySelectorAll('section');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.4 });
 
-        sections.forEach(section => observer.observe(section));
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
         window.addEventListener('resize', initStars);
     </script>
 </body>
