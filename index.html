@@ -13,8 +13,11 @@
             background-color: #080808;
             color: #f0f0f0;
             font-family: 'Lora', serif;
-            line-height: 1.8;
-            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
 
         #starfield {
@@ -22,120 +25,92 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 1;
-            pointer-events: none;
         }
 
-        .scroll-container {
+        .card {
             position: relative;
             z-index: 2;
-            padding: 0 10%;
-        }
-
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1.5s ease-out;
-            padding: 60px 0;
+            padding: 40px 25px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 25px;
+            animation: fadeIn 2.5s ease-in;
         }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .opening-text {
-            font-size: 1.3rem;
+        .lyrics {
+            font-size: 1.1rem;
             line-height: 1.8;
-            color: #fff;
+            color: #d4af37;
+            margin-bottom: 25px;
             font-style: italic;
-            max-width: 300px;
         }
 
-        h1 {
+        .divider {
+            width: 30px;
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+            margin: 20px auto;
+        }
+
+        .promise-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+        }
+
+        .promise-title {
             font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            letter-spacing: 5px;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
             color: #d4af37;
-            font-size: 0.8rem;
-            margin-bottom: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
         }
 
-        .big-text { font-size: 1.4rem; color: #ffffff; font-weight: 300; margin: 10px 0; }
-        .accent-text { color: #d4af37; }
-
-        .list-item { margin-bottom: 30px; display: block; }
-        .list-item b { font-weight: 400; color: #d4af37; font-size: 1.2rem; display: block; letter-spacing: 1px; }
-        .list-item small { color: rgba(255,255,255,0.5); font-size: 0.9rem; display: block; margin-top: 4px; }
-
-        footer {
-            padding: 100px 0 60px;
-            text-align: center;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            color: rgba(255,255,255,0.3);
-        }
-
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 20%, rgba(0,0,0,0.8) 100%);
-            pointer-events: none; z-index: 3;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <canvas id="starfield"></canvas>
-    <div class="overlay"></div>
 
-    <div class="scroll-container">
-        
-        <section>
-            <div class="opening-text">
-                "Beautiful, wise,<br>
-                and different from the rest.<br>
-                Losing to you is my win."
-            </div>
-            <p style="margin-top: 40px; font-size: 0.7rem; letter-spacing: 2px; color: rgba(255,255,255,0.4);">SCROLL</p>
-        </section>
+    <div class="card">
+        <div class="lyrics">
+            Pakke la chadd de yaarane sade naal,<br>
+            saambh sadda dil baki lavange sambhal.
+        </div>
 
-        <section>
-            <p class="big-text">Choice matters more than words.</p>
-        </section>
+        <div class="divider"></div>
 
-        <section>
-            <h1>Quiet Promises</h1>
-            <div class="list-container">
-                <span class="list-item"><b>Honesty</b><small>over easy silence.</small></span>
-                <span class="list-item"><b>Patience</b><small>through uncertain times.</small></span>
-                <span class="list-item"><b>Respect</b><small>for your space and pace.</small></span>
-                <span class="list-item"><b>Realness</b><small>instead of perfection.</small></span>
-            </div>
-        </section>
+        <div class="promise-text">
+            <span class="promise-title">The Promise</span>
+            I don’t believe in loud promises —<br>
+            I believe in lived ones.<br><br>
+            To show up with patience.<br>
+            To move with care.<br>
+            To listen before speaking.<br>
+            To respect your space<br>
+            and support your direction.<br><br>
+            No greed. No conditions.<br>
+            Only a quiet choice,<br>
+            made intentionally, every day.
+        </div>
 
-        <section>
-            <p class="big-text">No weight, no pressure.</p>
-            <p style="font-style: italic; color: rgba(255,255,255,0.6);">Just showing up.</p>
-        </section>
-
-        <section>
-            <p class="big-text">Chosen by <span class="accent-text">intention</span>.</p>
-        </section>
-
-        <section>
-            <p class="big-text">This is today.</p>
-        </section>
-
-        <footer>
-            With intention, <br> Deep
-        </footer>
-
+        <footer>With Intention, Deep</footer>
     </div>
 
     <script>
@@ -147,41 +122,33 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             stars = [];
-            for(let i=0; i<100; i++) {
+            for(let i=0; i<80; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     size: Math.random() * 1.2,
-                    speed: Math.random() * 0.3 + 0.1
+                    opacity: Math.random() * 0.5 + 0.2,
+                    blink: Math.random() * 0.015
                 });
             }
         }
 
         function drawStars() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "white";
             stars.forEach(star => {
-                ctx.globalAlpha = 0.4;
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
                 ctx.fill();
-                star.y -= star.speed;
-                if(star.y < 0) star.y = canvas.height;
+                star.opacity += star.blink;
+                if(star.opacity > 0.8 || star.opacity < 0.2) star.blink *= -1;
             });
             requestAnimationFrame(drawStars);
         }
 
         initStars();
         drawStars();
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.4 });
-
-        document.querySelectorAll('section').forEach(section => observer.observe(section));
-        window.addEventListener('resize', initStars);
+        window.onresize = initStars;
     </script>
 </body>
 </html>
