@@ -7,12 +7,11 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Montserrat:wght@300&display=swap');
 
-        /* --- BASE STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: #010101; color: #f0f0f0; overflow: hidden; }
         canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
-        /* --- STAGE 1: THE MAGICAL JAR --- */
+        /* STAGE 1: THE FLOATING JAR */
         #stage {
             position: relative; z-index: 10;
             width: 100vw; height: 100vh;
@@ -23,95 +22,58 @@
         .hint {
             font-family: 'Montserrat', sans-serif; font-size: 0.55rem;
             letter-spacing: 6px; color: #d4af37; text-transform: uppercase;
-            margin-bottom: 40px; opacity: 0.6; animation: blink 2.5s infinite;
+            margin-bottom: 40px; opacity: 0.6; animation: pulse 2s infinite;
         }
 
         .jar-wrapper { 
             position: relative; width: 120px; height: 180px; cursor: pointer;
-            animation: weightless 6s infinite ease-in-out; /* Floating Physics */
+            animation: float 5s infinite ease-in-out;
+            transition: transform 0.2s;
         }
 
-        .jar-glow {
-            position: absolute; width: 180%; height: 180%; top: -40%; left: -40%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
-            animation: pulse 4s infinite ease-in-out; pointer-events: none;
-        }
+        .vibrate { animation: vibrate 0.3s linear infinite !important; }
 
         .jar-shape {
-            width: 100%; height: 100%; border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px 20px 40px 40px; background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(8px); position: relative; overflow: hidden;
-        }
-
-        /* Shimmer Effect */
-        .jar-shape::after {
-            content: ''; position: absolute; top: -100%; left: -100%;
-            width: 300%; height: 300%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
-            animation: shimmer 8s infinite linear;
+            width: 100%; height: 100%; border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px 20px 40px 40px; background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px); position: relative;
         }
 
         .cap {
             position: absolute; top: -12px; left: 15px; width: 90px; height: 22px;
             background: #d4af37; border-radius: 3px; z-index: 5;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: all 0.8s cubic-bezier(0.5, -0.5, 0.5, 1.5);
         }
 
-        /* --- STAGE 2: THE COMPACT NOTE --- */
+        /* STAGE 2: THE REVEAL */
         #the-note {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             display: none; justify-content: center; align-items: center; z-index: 20;
         }
 
         .note-content {
-            width: 85%; max-width: 380px; 
-            animation: inkFade 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            width: 85%; max-width: 360px; 
+            animation: revealNote 3.5s forwards ease-out;
         }
 
         .ink-text {
             font-family: 'Dancing Script', cursive; font-size: 1.4rem;
-            line-height: 1.45; color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.1);
+            line-height: 1.4; color: #ffffff;
         }
 
-        .vow {
-            color: #d4af37; display: block; margin: 10px 0; 
-            font-size: 1.6rem; font-weight: 600;
+        .vow { color: #d4af37; display: block; margin: 8px 0; font-size: 1.6rem; font-weight: 600; }
+        footer { 
+            margin-top: 25px; font-family: 'Montserrat', sans-serif; 
+            font-size: 0.8rem; letter-spacing: 5px; color: #d4af37; 
         }
 
-        footer {
-            margin-top: 35px; font-family: 'Dancing Script', cursive;
-            font-size: 1.6rem; color: #d4af37;
-        }
-
-        /* --- ANIMATION SEQUENCES --- */
-        
-        /* 1. Cap Unscrew & Fly */
-        .lid-release {
-            animation: unscrew 1.2s forwards cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes unscrew {
-            0% { transform: translateY(0) rotate(0); }
-            40% { transform: translateY(-10px) rotate(360deg); opacity: 1; }
-            100% { transform: translateY(-250px) rotate(720deg); opacity: 0; }
-        }
-
-        /* 2. Jar Dissolve */
-        .dissolve {
-            animation: dissolve 1s forwards ease-in-out;
-        }
-
-        @keyframes dissolve {
-            to { transform: scale(1.2); filter: blur(30px); opacity: 0; }
-        }
-
-        /* 3. Global Effects */
-        @keyframes weightless { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-15px) rotate(2deg); } }
-        @keyframes shimmer { 0% { top: -100%; left: -100%; } 100% { top: 100%; left: 100%; } }
-        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
-        @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
-        @keyframes inkFade { from { opacity: 0; filter: blur(15px); transform: scale(0.9); } to { opacity: 1; filter: blur(0); transform: scale(1); } }
-
+        /* KEYFRAMES */
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-20px) rotate(3deg); } }
+        @keyframes vibrate { 0% { transform: translate(1px, 1px) rotate(0deg); } 50% { transform: translate(-2px, 1px) rotate(1deg); } 100% { transform: translate(1px, -1px) rotate(-1deg); } }
+        @keyframes lidFly { to { transform: translateY(-280px) rotate(600deg); opacity: 0; } }
+        @keyframes dissolve { to { transform: scale(1.6); filter: blur(60px); opacity: 0; } }
+        @keyframes revealNote { from { opacity: 0; filter: blur(20px); transform: scale(0.95); } to { opacity: 1; filter: blur(0); transform: scale(1); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
     </style>
 </head>
 <body>
@@ -121,7 +83,6 @@
     <div id="stage">
         <div class="hint">Open the Jar</div>
         <div class="jar-wrapper" id="jar">
-            <div class="jar-glow"></div>
             <div class="cap" id="cap"></div>
             <div class="jar-shape"></div>
         </div>
@@ -130,70 +91,100 @@
     <div id="the-note">
         <div class="note-content">
             <div class="ink-text">
-                I don’t believe in loud promises —<br>
-                I believe in the ones lived out, quietly.<br><br>
+                I don’t believe in loud promises <br>
+                I believe in the ones lived out, quietly.<br>
                 
                 <span class="vow">Promise to be love.</span>
                 <span class="vow">Promise to be care.</span>
                 <span class="vow">Promise to be there.</span><br>
                 
                 To listen. To respect your space<br>
-                and support your direction.<br><br>
+                and support your direction.<br>
                 
                 No greed. No conditions.<br>
                 Only a quiet choice, made by intention.
             </div>
-            <footer>With Intention, Deep</footer>
+            <footer>DEEP</footer>
         </div>
     </div>
 
     <script>
-        // --- STARFIELD ---
         const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
         let stars = [];
-        
+        let particles = [];
+
         function init() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             stars = [];
-            for(let i=0; i<100; i++) {
-                stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*1.3, o: Math.random(), v: Math.random()*0.01});
+            for(let i=0; i<100; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*1.5, o: Math.random(), v: Math.random()*0.01});
+        }
+
+        function createParticles(x, y) {
+            for(let i=0; i<60; i++) {
+                particles.push({
+                    x: x, y: y,
+                    vx: (Math.random() - 0.5) * 4, // Slower explosion
+                    vy: (Math.random() - 0.5) * 4,
+                    size: Math.random() * 2.5,
+                    life: 1,
+                    decay: Math.random() * 0.003 + 0.002 // Much slower decay so they stay longer
+                });
             }
         }
 
         function draw() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
+            
+            // Draw Background Stars
             stars.forEach(s => {
                 ctx.fillStyle = `rgba(255,255,255,${s.o})`;
                 ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill();
-                s.o += s.v;
-                if(s.o > 0.8 || s.o < 0.2) s.v *= -1;
+                s.o += s.v; if(s.o > 0.8 || s.o < 0.2) s.v *= -1;
+            });
+
+            // Draw Stardust Particles
+            particles.forEach((p, i) => {
+                ctx.fillStyle = `rgba(212, 175, 55, ${p.life})`;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+                
+                p.x += p.vx; 
+                p.y += p.vy; 
+                p.life -= p.decay; // Linger effect
+
+                // Add slight drift
+                p.vy += 0.01; 
+
+                if(p.life <= 0) particles.splice(i, 1);
             });
             requestAnimationFrame(draw);
         }
+
         init(); draw(); window.onresize = init;
 
-        // --- INTERACTION ---
         const jar = document.getElementById('jar');
         const cap = document.getElementById('cap');
         const stage = document.getElementById('stage');
         const theNote = document.getElementById('the-note');
 
         jar.addEventListener('click', () => {
-            // 1. Cap unscrews and pops
-            cap.classList.add('lid-release');
+            jar.classList.add('vibrate'); 
             
-            // 2. Jar shatters/dissolves
             setTimeout(() => {
-                jar.classList.add('dissolve');
-                document.querySelector('.hint').style.opacity = '0';
+                cap.style.animation = "lidFly 1.2s forwards";
                 
-                // 3. Reveal the ink note
                 setTimeout(() => {
-                    stage.style.display = "none";
-                    theNote.style.display = "flex";
-                }, 900);
-            }, 700);
+                    const rect = jar.getBoundingClientRect();
+                    createParticles(rect.left + rect.width/2, rect.top + rect.height/2);
+                    jar.style.animation = "dissolve 1.5s forwards";
+                    document.querySelector('.hint').style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        stage.style.display = "none";
+                        theNote.style.display = "flex";
+                    }, 1200);
+                }, 700);
+            }, 400);
         });
     </script>
 </body>
